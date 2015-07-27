@@ -1,88 +1,114 @@
 ko.bindingHandlers.combobox = {
 
-	init: function(element, valueAccessor){
+    init: function (element, valueAccessor) {
 
 
-	    var $input = $('<input type="text"/>');
-	    var $button = $('<button type="button">V</button>');
-	    var $select = $('<select></select>');
+        var $input = $('<input type="text"/>');
+        var $button = $('<button type="button">V</button>');
+        var $select = $('<select></select>');
 
-	    var $element = $(element);
-		$element.addClass('combobox');
-		$element.append($input);
-		$element.append($button);
-		$element.append($select);
-		    
-	    $button.click(function(){
+        var $element = $(element);
+        $element.addClass('combobox');
+        $element.append($input);
+        $element.append($button);
+        $element.append($select);
 
-	        $select.simulate('mousedown');
-		});
+        $button.click(function () {
 
-		$select.change(function(){
+            $select.simulate('mousedown');
+        });
 
-			var newValue = $select.val();
+        $select.change(function () {
 
-			$input.val(newValue);
+            var newValue = $select.val();
 
-			var modelProperty = valueAccessor();
-			modelProperty(newValue);
-		});
+            $input.val(newValue);
 
-		$input.change(function(){
+            var modelProperty = valueAccessor();
+            if (typeof (modelProperty) === 'function') {
+                modelProperty(newValue);
+            }
+            
+        });
 
-			var newValue = $input.val();
+        $input.change(function () {
 
-			$select.val(newValue);
-			
-			var modelProperty = valueAccessor();
-			modelProperty(newValue);
-		});
+            var newValue = $input.val();
 
-		
+            $select.val(newValue);
+
+            var modelProperty = valueAccessor();
+            if (typeof (modelProperty) === 'function') {
+                modelProperty(newValue);
+            }
+        });
 
 
-	},
 
-	update: function(element, valueAccessor){
-		
-		var $element = $(element);
-		var $input = $element.find('input');
-		var $select = $element.find('select');
 
-		var value = valueAccessor()();
-		$input.val(value);
-		$select.val(value);
-	}		
+    },
+
+    update: function (element, valueAccessor) {
+
+        var $element = $(element);
+        var $input = $element.find('input');
+        var $select = $element.find('select');
+
+        var value = valueAccessor()();
+        $input.val(value);
+        $select.val(value);
+    }
 }
 
 
 ko.bindingHandlers.comboOptions = {
 
-	init: function(element, valueAccessor, allBindings){
+    init: function (element, valueAccessor, allBindings) {
 
-		var $select = $(element).find('select');
-		var selectValues = valueAccessor()();
+        var $select = $(element).find('select');
 
-		$select.empty();
-		$.each(selectValues, function(key, value){
-			$select
-				.append($('<option/>')
+        var selectValues;
+        var modelProperty = valueAccessor();
+
+        if (typeof (modelProperty) === 'function') {
+            selectValues = modelProperty();
+        }else{
+            selectValues = modelProperty;
+        }
+        
+
+        $select.empty();
+        $.each(selectValues, function (key, value) {
+
+            var $newOption = $('<option/>')
 							.val(value)
-							.text(value));
-		});
-	},
+							.text(value);
 
-	update: function(element, valueAccessor){
+            $select.append($newOption);
+        });
+    },
 
-		var $select = $(element).find('select');
-		var newSelectValues = valueAccessor()();
+    update: function (element, valueAccessor) {
 
-		$select.empty();
-		$.each(newSelectValues, function(key, value){
-			$select
-				.append($('<option/>')
+        var $select = $(element).find('select');
+
+        var newSelectValues;
+        var modelProperty = valueAccessor();
+
+        if (typeof (modelProperty) === 'function') {
+            newSelectValues = modelProperty();
+        } else {
+            newSelectValues = modelProperty;
+        }
+
+        $select.empty();
+        $.each(newSelectValues, function (key, value) {
+
+            var $newOption = $('<option/>')
 							.val(value)
-							.text(value));
-		});
-	}
+							.text(value);
+
+            $select.append($newOption);
+        });
+    }
 }
