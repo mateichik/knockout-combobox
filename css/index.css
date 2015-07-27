@@ -1,0 +1,25 @@
+.combobox{
+    position:relative;
+}
+.combobox input{
+	width:100%;
+    position:absolute;
+    right:0;
+    top:0;
+    z-index:99;
+}
+
+.combobox button{
+    position:absolute;
+    right:0;
+    top:0;
+    z-index:100;
+}
+
+.combobox select{
+    width:100%;
+    position:absolute;
+    right:0;
+    top:0;
+    z-index: 98;
+}

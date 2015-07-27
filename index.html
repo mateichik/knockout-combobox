@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" href="./css/index.css"/>
+	</head>
+	<body>
+		<ul>
+		<li><div data-bind="combobox: somevalue, comboOptions: cities" style="width:100px;"></div></li>
+		<li><span data-bind="text: somevalue" style="float:right"></span></li>
+
+		<li><div data-bind="combobox: somevalue2, comboOptions: cities" style="width:200px;"></div></li>
+		<li><span data-bind="text: somevalue2" style="float:right"></span></li>
+
+		</ul>
+
+		<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+		<script src="./js/customBindings.js"></script>
+		<script src="./js/jquery.simulate.js"></script>
+		<script src="./js/index.js"></script>
+	</body>
+</html>
